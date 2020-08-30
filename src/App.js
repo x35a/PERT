@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 //import "./styles.css";
-import { Row } from "./components/Row/Row";
 import { create_default_row } from "./create_default_row";
+import { Row } from "./components/Row/Row";
+import { RowField } from "./components/RowField/RowField";
 
 export default class App extends Component {
   state = {
@@ -38,18 +39,33 @@ export default class App extends Component {
   };
 
   render() {
-    const rows = this.state.rows.map((row_data, row_index) => (
-      <Row
-        key={row_index}
-        row_data={row_data}
-        row_index={row_index}
-        onchange={this.onInputChangeHandler}
-        add_fied={this.onAddFieldHandler}
-        remove_field={this.onRemoveFieldHandler}
-        onkeydown={this.onKeyDownHandler}
-      />
-    ));
-
-    return <>{rows}</>;
+    return (
+      <>
+        {/* loop Rows */}
+        {this.state.rows.map((row_data, row_index) => (
+          <Row
+            key={row_index}
+            row_data={row_data}
+            row_index={row_index}
+            add_fied={this.onAddFieldHandler}
+            remove_field={this.onRemoveFieldHandler}
+          >
+            {/* Loop RowFields */}
+            {Object.entries(row_data).map(
+              ([field_key, field_value], field_index) => (
+                <RowField
+                  key={field_index}
+                  row_index={row_index}
+                  field_key={field_key}
+                  field_value={field_value}
+                  onchange={this.onInputChangeHandler}
+                  onkeydown={this.onKeyDownHandler}
+                />
+              )
+            )}
+          </Row>
+        ))}
+      </>
+    );
   }
 }
