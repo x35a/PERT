@@ -5,6 +5,8 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "immer": "7.0.8",
+    "lodash.clonedeep": "4.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-scripts": "3.4.3"
