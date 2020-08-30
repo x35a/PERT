@@ -35,6 +35,7 @@ export default class App extends Component {
   };
 
   onKeyDownHandler = (event, row_index, field_index) => {
+    //console.log(event.code);
     // Add new row on tab or enter
     if (event.which === 9 || event.which === 13) {
       const last_row = row_index === Object.keys(this.state.rows).length - 1;
