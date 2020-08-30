@@ -12,7 +12,7 @@ export const RowField = (props) => {
           props.onchange(event, props.row_index, props.field_key)
         }
         onKeyDown={(event) =>
-          props.onkeydown(event, props.row_index, props.field_key)
+          props.onkeydown(event, props.row_index, props.field_index)
         }
       />
     </div>

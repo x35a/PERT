@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { create_default_row } from "./create_default_row";
 import { Row } from "./components/Row/Row";
 import { RowField } from "./components/RowField/RowField";
+import { field_type } from "./components/RowField/field_type";
 
 export default class App extends Component {
   state = {
@@ -10,7 +11,7 @@ export default class App extends Component {
   };
 
   onInputChangeHandler = (event, row_index, field_key) => {
-    console.log("onchange");
+    //console.log("onchange");
     const state = { ...this.state };
     state.rows[row_index][field_key] = event.target.value;
     //this.setState({ rows: state.rows });
@@ -33,9 +34,18 @@ export default class App extends Component {
     this.setState(state);
   };
 
-  onKeyDownHandler = (event) => {
-    console.log("onKeyDownHandler");
-    console.log(event.which);
+  onKeyDownHandler = (event, row_index, field_index) => {
+    // Add new row on tab or enter
+    if (event.which === 9 || event.which === 13) {
+      const last_row = row_index === Object.keys(this.state.rows).length - 1;
+      const last_field = field_index === Object.keys(field_type).length - 1;
+      //console.log(last_row, last_field);
+      if (last_row && last_field) {
+        const rows = [...this.state.rows];
+        rows.push(create_default_row());
+        this.setState({ rows: rows });
+      }
+    }
   };
 
   render() {
@@ -58,6 +68,7 @@ export default class App extends Component {
                   row_index={row_index}
                   field_key={field_key}
                   field_value={field_value}
+                  field_index={field_index}
                   onchange={this.onInputChangeHandler}
                   onkeydown={this.onKeyDownHandler}
                 />
