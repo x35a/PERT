@@ -2,6 +2,7 @@ import cloneDeep from "lodash.clonedeep";
 
 const default_row_object = {
   work_description: "",
+  has_focus: false,
   inputs: [
     {
       key: "min",
@@ -18,8 +19,7 @@ const default_row_object = {
       name: "Max",
       value: 0
     }
-  ],
-  hasfocus: false
+  ]
 };
 
 export const create_row_object = (source_object = {}) => {

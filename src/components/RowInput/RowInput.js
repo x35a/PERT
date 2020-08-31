@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import { input_types } from "./input_types";
 
 export class RowInput extends Component {
   constructor(props) {
@@ -8,7 +7,8 @@ export class RowInput extends Component {
   }
 
   componentDidMount() {
-    //this.input.current.focus();
+    if (this.props.has_focus && this.props.input_index === 0)
+      this.input.current.focus();
   }
 
   render() {

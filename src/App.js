@@ -20,7 +20,7 @@ export default class App extends Component {
 
   onAddFieldHandler = (row_index) => {
     let rows = [...this.state.rows]; // shallow copy
-    rows.push(create_row_object({ hasfocus: true }));
+    rows.push(create_row_object({ has_focus: true }));
     this.setState({ rows: rows });
   };
 
@@ -29,6 +29,8 @@ export default class App extends Component {
     const rows = this.state.rows.filter(
       (row, index) => index !== target_row_index
     );
+    console.log(rows);
+
     this.setState({ rows: rows });
   };
 
@@ -41,7 +43,7 @@ export default class App extends Component {
         input_index === this.state.rows[row_index].inputs.length - 1;
       if (last_row && last_input) {
         const rows = [...this.state.rows]; // shallow copy
-        rows.push(create_row_object({ hasfocus: true }));
+        rows.push(create_row_object({ has_focus: true }));
         this.setState({ rows: rows });
       }
     }
@@ -54,8 +56,11 @@ export default class App extends Component {
   };
 
   onWorkDescriptionChangeHandler = (event, row_index) => {
-    const work_description = event.target.value;
-    this.setState({ work_description: work_description });
+    // immutable array item update
+    const rows = produce(this.state.rows, (draftRows) => {
+      draftRows[row_index].work_description = event.target.value;
+    });
+    this.setState({ rows: rows });
   };
 
   render() {
@@ -65,10 +70,11 @@ export default class App extends Component {
         {this.state.rows.map((row, row_index) => (
           <Row
             key={row_index}
+            work_description={row.work_description}
             row_index={row_index}
             add_fied={this.onAddFieldHandler}
             remove_field={this.onRemoveFieldHandler}
-            onworkdescriptionchange={this.onWorkDescriptionChangeHandler}
+            on_work_description_change={this.onWorkDescriptionChangeHandler}
           >
             {/* Loop RowFields */}
             {Object.values(row.inputs).map((input, input_index) => (
@@ -78,7 +84,7 @@ export default class App extends Component {
                 input_name={input.name}
                 input_value={input.value}
                 input_index={input_index}
-                hasfocus={row.hasfocus}
+                has_focus={row.has_focus}
                 onchange={this.onInputChangeHandler}
                 onkeydown={this.onKeyDownHandler}
               />
