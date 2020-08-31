@@ -25,6 +25,7 @@ export default class App extends Component {
   };
 
   onRemoveFieldHandler = (target_row_index) => {
+    console.log(target_row_index);
     const rows = this.state.rows.filter(
       (row, index) => index !== target_row_index
     );
@@ -52,6 +53,11 @@ export default class App extends Component {
     }
   };
 
+  onWorkDescriptionChangeHandler = (event, row_index) => {
+    const work_description = event.target.value;
+    this.setState({ work_description: work_description });
+  };
+
   render() {
     return (
       <>
@@ -62,6 +68,7 @@ export default class App extends Component {
             row_index={row_index}
             add_fied={this.onAddFieldHandler}
             remove_field={this.onRemoveFieldHandler}
+            onworkdescriptionchange={this.onWorkDescriptionChangeHandler}
           >
             {/* Loop RowFields */}
             {Object.values(row.inputs).map((input, input_index) => (

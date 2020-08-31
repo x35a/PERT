@@ -1,6 +1,7 @@
 import cloneDeep from "lodash.clonedeep";
 
 const default_row_object = {
+  work_description: "",
   inputs: [
     {
       key: "min",
