@@ -75,6 +75,7 @@ export default class App extends Component {
             add_fied={this.onAddFieldHandler}
             remove_field={this.onRemoveFieldHandler}
             on_work_description_change={this.onWorkDescriptionChangeHandler}
+            rows_length={this.state.rows.length}
           >
             {/* Loop RowFields */}
             {Object.values(row.inputs).map((input, input_index) => (
