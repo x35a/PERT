@@ -18,14 +18,13 @@ export default class App extends Component {
     this.setState({ rows: rows });
   };
 
-  onAddFieldHandler = (row_index) => {
+  onAddRowHandler = (row_index) => {
     let rows = [...this.state.rows]; // shallow copy
     rows.push(create_row_object({ has_focus: true }));
     this.setState({ rows: rows });
   };
 
-  onRemoveFieldHandler = (target_row_index) => {
-    console.log(target_row_index);
+  onRemoveRowHandler = (target_row_index) => {
     const rows = this.state.rows.filter(
       (row, index) => index !== target_row_index
     );
@@ -72,8 +71,8 @@ export default class App extends Component {
             key={row_index}
             work_description={row.work_description}
             row_index={row_index}
-            add_fied={this.onAddFieldHandler}
-            remove_field={this.onRemoveFieldHandler}
+            add_row={this.onAddRowHandler}
+            remove_row={this.onRemoveRowHandler}
             on_work_description_change={this.onWorkDescriptionChangeHandler}
             rows_length={this.state.rows.length}
           >

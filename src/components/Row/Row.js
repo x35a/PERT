@@ -1,11 +1,12 @@
 import React from "react";
 
 export const Row = (props) => {
+  // Defome row buttons
   const row_add_button = (
-    <button onClick={() => props.add_fied(props.row_index)}>Add</button>
+    <button onClick={() => props.add_row(props.row_index)}>Add</button>
   );
   const row_remove_button = (
-    <button onClick={() => props.remove_field(props.row_index)}>Remove</button>
+    <button onClick={() => props.remove_row(props.row_index)}>Remove</button>
   );
 
   let row_buttons;
