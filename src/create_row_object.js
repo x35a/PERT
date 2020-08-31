@@ -21,4 +21,7 @@ const default_row_object = {
   hasfocus: false
 };
 
-export const create_row_object = () => cloneDeep(default_row_object);
+export const create_row_object = (source_object = {}) => {
+  let row = cloneDeep(default_row_object);
+  return Object.assign(row, source_object);
+};

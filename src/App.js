@@ -20,33 +20,39 @@ export default class App extends Component {
 
   onAddFieldHandler = (row_index) => {
     let rows = [...this.state.rows]; // shallow copy
-    rows.push(create_row_object());
+    rows.push(create_row_object({ hasfocus: true }));
     this.setState({ rows: rows });
   };
 
   onRemoveFieldHandler = (target_row_index) => {
-    let rows = [...this.state.rows]; // shallow copy
-    rows = rows.filter((row, index) => index !== target_row_index);
+    const rows = this.state.rows.filter(
+      (row, index) => index !== target_row_index
+    );
     this.setState({ rows: rows });
   };
 
   onKeyDownHandler = (event, row_index, input_index) => {
-    //console.log(event.code);
-    // Add new row on tab or enter
-    if (event.which === 9 || event.which === 13) {
+    // Add new row on Enter
+    // event.which === 13
+    if (event.key === "Enter") {
       const last_row = row_index === this.state.rows.length - 1;
       const last_input =
         input_index === this.state.rows[row_index].inputs.length - 1;
       if (last_row && last_input) {
         const rows = [...this.state.rows]; // shallow copy
-        rows.push(create_row_object());
+        rows.push(create_row_object({ hasfocus: true }));
         this.setState({ rows: rows });
       }
+    }
+
+    // Delete row on Delete button
+    if (event.key === "Delete") {
+      const rows = this.state.rows.filter((row, index) => index !== row_index);
+      this.setState({ rows: rows });
     }
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         {/* loop Rows */}
@@ -65,6 +71,7 @@ export default class App extends Component {
                 input_name={input.name}
                 input_value={input.value}
                 input_index={input_index}
+                hasfocus={row.hasfocus}
                 onchange={this.onInputChangeHandler}
                 onkeydown={this.onKeyDownHandler}
               />
