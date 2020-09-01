@@ -28,8 +28,6 @@ export default class App extends Component {
     const rows = this.state.rows.filter(
       (row, index) => index !== target_row_index
     );
-    console.log(rows);
-
     this.setState({ rows: rows });
   };
 
