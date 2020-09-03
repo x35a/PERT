@@ -6,9 +6,10 @@ const default_row_object = {
     value: "",
     validation: {
       // required: true,
-      error_message: "This field is required"
+      error_message: "The field is required"
     },
-    valid: false
+    valid: false,
+    touched: false
   },
   has_focus: false,
   inputs: [
@@ -19,9 +20,10 @@ const default_row_object = {
       validation: {
         // required: true,
         min_value: 0,
-        error_message: "Value can't be negative"
+        error_message: "Value is required and can't be negative"
       },
-      valid: true
+      valid: true,
+      touched: false
     },
     {
       key: "guess",
@@ -30,9 +32,10 @@ const default_row_object = {
       validation: {
         // required: true,
         min_value: 0,
-        error_message: "Value can't be negative"
+        error_message: "Value is required and can't be negative"
       },
-      valid: true
+      valid: true,
+      touched: false
     },
     {
       key: "max",
@@ -41,9 +44,10 @@ const default_row_object = {
       validation: {
         // required: true,
         min_value: 0,
-        error_message: "Value can't be negative"
+        error_message: "Value is required and can't be negative"
       },
-      valid: true
+      valid: true,
+      touched: false
     }
   ]
 };

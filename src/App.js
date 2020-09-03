@@ -17,10 +17,12 @@ export default class App extends Component {
       input.value = event.target.value;
       // validate
       input.valid =
+        event.target.value &&
         !isNaN(event.target.value) &&
         event.target.value >= input.validation.min_value
           ? true
           : false;
+      input.touched = true;
     });
     this.setState({ rows: rows });
   };
@@ -66,6 +68,7 @@ export default class App extends Component {
       work_description.value = event.target.value;
       // validate
       work_description.valid = event.target.value.trim() ? true : false;
+      work_description.touched = true;
     });
     this.setState({ rows: rows });
   };
@@ -77,21 +80,19 @@ export default class App extends Component {
         {this.state.rows.map((row, row_index) => (
           <Row
             key={row_index}
-            work_description_placeholder={row.work_description.placeholder}
-            work_description_value={row.work_description.value}
             row_index={row_index}
+            rows_length={this.state.rows.length}
             add_row={this.onAddRowHandler}
             remove_row={this.onRemoveRowHandler}
+            work_description={row.work_description}
             on_work_description_change={this.onWorkDescriptionChangeHandler}
-            rows_length={this.state.rows.length}
           >
             {/* Loop RowFields */}
             {Object.values(row.inputs).map((input, input_index) => (
               <RowInput
                 key={input_index}
                 row_index={row_index}
-                input_name={input.name}
-                input_value={input.value}
+                input={input}
                 input_index={input_index}
                 has_focus={row.has_focus}
                 onchange={this.onInputChangeHandler}
