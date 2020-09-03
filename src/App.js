@@ -55,8 +55,13 @@ export default class App extends Component {
   onWorkDescriptionChangeHandler = (event, row_index) => {
     // immutable array item update
     const rows = produce(this.state.rows, (draftRows) => {
-      draftRows[row_index].work_description = event.target.value;
+      draftRows[row_index].work_description.value = event.target.value;
+      // validate
+      draftRows[row_index].work_description.valid = event.target.value.trim()
+        ? true
+        : false;
     });
+
     this.setState({ rows: rows });
   };
 
@@ -67,7 +72,8 @@ export default class App extends Component {
         {this.state.rows.map((row, row_index) => (
           <Row
             key={row_index}
-            work_description={row.work_description}
+            work_description_placeholder={row.work_description.placeholder}
+            work_description_value={row.work_description.value}
             row_index={row_index}
             add_row={this.onAddRowHandler}
             remove_row={this.onRemoveRowHandler}
