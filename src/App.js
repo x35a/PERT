@@ -15,14 +15,17 @@ export default class App extends Component {
     const rows = produce(this.state.rows, (draftRows) => {
       let input = draftRows[row_index].inputs[input_index];
       input.value = event.target.value;
-      // validate
+      input.touched = true;
+      // validate inputs
       input.valid =
         event.target.value &&
         !isNaN(event.target.value) &&
         event.target.value >= input.validation.min_value
           ? true
           : false;
-      input.touched = true;
+      // validate row
+      let row = draftRows[row_index];
+      row.is_valid = this.check_row_validity(draftRows[row_index]);
     });
     this.setState({ rows: rows });
   };
@@ -69,8 +72,19 @@ export default class App extends Component {
       // validate
       work_description.valid = event.target.value.trim() ? true : false;
       work_description.touched = true;
+      // validate row
+      let row = draftRows[row_index];
+      row.is_valid = this.check_row_validity(draftRows[row_index]);
     });
+    this.check_row_validity(rows[row_index]);
     this.setState({ rows: rows });
+  };
+
+  check_row_validity = (row) => {
+    let result = true;
+    result = result && row.work_description.valid;
+    row.inputs.forEach((input) => (result = result && input.valid));
+    return result;
   };
 
   render() {
@@ -82,6 +96,8 @@ export default class App extends Component {
             key={row_index}
             row_index={row_index}
             rows_length={this.state.rows.length}
+            row_has_focus={row.has_focus}
+            row_is_valid={row.is_valid}
             add_row={this.onAddRowHandler}
             remove_row={this.onRemoveRowHandler}
             work_description={row.work_description}
@@ -94,7 +110,6 @@ export default class App extends Component {
                 row_index={row_index}
                 input={input}
                 input_index={input_index}
-                has_focus={row.has_focus}
                 onchange={this.onInputChangeHandler}
                 onkeydown={this.onKeyDownHandler}
               />
