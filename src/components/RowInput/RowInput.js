@@ -19,6 +19,7 @@ export class RowInput extends Component {
           ref={this.input}
           type="number"
           value={this.props.input_value}
+          // min="0"
           onChange={(event) =>
             this.props.onchange(
               event,

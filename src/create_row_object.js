@@ -5,7 +5,8 @@ const default_row_object = {
     placeholder: "Work Description",
     value: "",
     validation: {
-      required: true
+      // required: true,
+      error_message: "This field is required"
     },
     valid: false
   },
@@ -16,21 +17,33 @@ const default_row_object = {
       name: "Min", // placeholder?
       value: 0,
       validation: {
-        required: true,
+        // required: true,
         min_value: 0,
-        error_message: "Required field, min value is 0"
+        error_message: "Value can't be negative"
       },
       valid: true
     },
     {
       key: "guess",
       name: "Guess",
-      value: 0
+      value: 0,
+      validation: {
+        // required: true,
+        min_value: 0,
+        error_message: "Value can't be negative"
+      },
+      valid: true
     },
     {
       key: "max",
       name: "Max",
-      value: 0
+      value: 0,
+      validation: {
+        // required: true,
+        min_value: 0,
+        error_message: "Value can't be negative"
+      },
+      valid: true
     }
   ]
 };

@@ -13,7 +13,14 @@ export default class App extends Component {
   onInputChangeHandler = (event, row_index, input_index) => {
     // immutable array item update
     const rows = produce(this.state.rows, (draftRows) => {
-      draftRows[row_index].inputs[input_index].value = event.target.value;
+      let input = draftRows[row_index].inputs[input_index];
+      input.value = event.target.value;
+      // validate
+      input.valid =
+        !isNaN(event.target.value) &&
+        event.target.value >= input.validation.min_value
+          ? true
+          : false;
     });
     this.setState({ rows: rows });
   };
@@ -55,13 +62,11 @@ export default class App extends Component {
   onWorkDescriptionChangeHandler = (event, row_index) => {
     // immutable array item update
     const rows = produce(this.state.rows, (draftRows) => {
-      draftRows[row_index].work_description.value = event.target.value;
+      let work_description = draftRows[row_index].work_description;
+      work_description.value = event.target.value;
       // validate
-      draftRows[row_index].work_description.valid = event.target.value.trim()
-        ? true
-        : false;
+      work_description.valid = event.target.value.trim() ? true : false;
     });
-
     this.setState({ rows: rows });
   };
 
