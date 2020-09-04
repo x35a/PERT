@@ -59,10 +59,10 @@ export default class Row extends Component {
       <div>
         <span>{this.props.row_index + 1}.</span>
         <div style={{ display: "inline-block" }}>
-          <div>{this.props.work_description.placeholder}</div>
+          <div>{this.props.work_description.caption}</div>
           <textarea
             ref={this.work_description_ref}
-            placeholder={this.props.work_description.placeholder}
+            // placeholder={this.props.work_description.caption}
             value={this.props.work_description.value}
             onChange={(event) =>
               this.props.on_work_description_change(event, this.props.row_index)

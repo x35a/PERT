@@ -108,7 +108,7 @@ export default class App extends Component {
   render() {
     return (
       <>
-        {/* loop Rows */}
+        {/* Loop Rows */}
         {this.state.rows.map((row, row_index) => (
           <Row
             key={row_index}
@@ -121,7 +121,7 @@ export default class App extends Component {
             work_description={row.work_description}
             on_work_description_change={this.onWorkDescriptionChangeHandler}
           >
-            {/* Loop RowFields */}
+            {/* Loop Inputs */}
             {Object.values(row.inputs).map((input, input_index) => (
               <RowInput
                 key={input_index}

@@ -1,59 +1,58 @@
 import cloneDeep from "lodash.clonedeep";
 
-const default_row_object = {
-  has_focus: false, // row has focus
-  is_valid: false,
-  work_description: {
-    placeholder: "Work Description",
-    value: "",
-    validation: {
-      // required: true,
-      error_message: "The field is required"
+const row_object = {
+    has_focus: false, // row has focus
+    is_valid: false,
+
+    work_description: {
+        caption: "Work Description",
+        value: "",
+        validation: {
+            // required: true,
+            error_message: "The field is required"
+        },
+        valid: false,
+        touched: false
     },
-    valid: false,
-    touched: false
-  },
-  inputs: [
-    {
-      key: "min",
-      name: "Min", // placeholder?
-      value: 0,
-      validation: {
-        // required: true,
-        min_value: 0,
-        error_message: "Value is required and can't be negative"
-      },
-      valid: true,
-      touched: false
-    },
-    {
-      key: "guess",
-      name: "Guess",
-      value: 0,
-      validation: {
-        // required: true,
-        min_value: 0,
-        error_message: "Value is required and can't be negative"
-      },
-      valid: true,
-      touched: false
-    },
-    {
-      key: "max",
-      name: "Max",
-      value: 0,
-      validation: {
-        // required: true,
-        min_value: 0,
-        error_message: "Value is required and can't be negative"
-      },
-      valid: true,
-      touched: false
-    }
-  ]
+
+    inputs: [
+        {
+            caption: "Min",
+            value: 0,
+            validation: {
+                // required: true,
+                min_value: 0,
+                error_message: "Value is required and can't be negative"
+            },
+            valid: true,
+            touched: false
+        },
+        {
+            caption: "Guess",
+            value: 0,
+            validation: {
+                // required: true,
+                min_value: 0,
+                error_message: "Value is required and can't be negative"
+            },
+            valid: true,
+            touched: false
+        },
+        {
+            caption: "Max",
+            value: 0,
+            validation: {
+                // required: true,
+                min_value: 0,
+                error_message: "Value is required and can't be negative"
+            },
+            valid: true,
+            touched: false
+        }
+    ]
 };
 
 export const create_row_object = (source_object = {}) => {
-  let row = cloneDeep(default_row_object);
-  return Object.assign(row, source_object);
+    let new_row_object = cloneDeep(row_object);
+    return Object.assign(new_row_object, source_object);
 };

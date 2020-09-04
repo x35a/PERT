@@ -4,7 +4,7 @@ export default class RowInput extends Component {
   render() {
     return (
       <div style={{ display: "inline-block" }}>
-        <div>{this.props.input.name}</div>
+        <div>{this.props.input.caption}</div>
         <input
           type="number"
           value={this.props.input.value}
