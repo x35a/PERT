@@ -10,7 +10,7 @@ export default {
             error_message: "The field is required"
         },
         valid: false,
-        touched: false
+        touched: false // to show validation error msg
     },
 
     inputs: [
@@ -23,7 +23,7 @@ export default {
                 error_message: "Value is required and can't be negative"
             },
             valid: true,
-            touched: false
+            touched: false // to show validation error msg
         },
         {
             caption: "Guess",
@@ -34,7 +34,7 @@ export default {
                 error_message: "Value is required and can't be negative"
             },
             valid: true,
-            touched: false
+            touched: false // to show validation error msg
         },
         {
             caption: "Max",
@@ -45,7 +45,7 @@ export default {
                 error_message: "Value is required and can't be negative"
             },
             valid: true,
-            touched: false
+            touched: false // to show validation error msg
         }
     ]
 };
