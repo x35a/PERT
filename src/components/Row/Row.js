@@ -49,8 +49,8 @@ export default class Row extends Component {
     else if (this.props.row_index === this.props.rows_length - 1)
       row_buttons = (
         <>
-          {row_remove_button}
           {row_add_button}
+          {row_remove_button}
         </>
       );
     else row_buttons = row_remove_button;

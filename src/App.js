@@ -19,8 +19,8 @@ export default class App extends Component {
       // validate inputs
       input.valid =
         event.target.value &&
-        !isNaN(event.target.value) &&
-        event.target.value >= input.validation.min_value
+          !isNaN(event.target.value) &&
+          event.target.value >= input.validation.min_value
           ? true
           : false;
       // validate row
@@ -46,13 +46,13 @@ export default class App extends Component {
     // let rows = this.state.rows.filter((row, index) => index !== row_index);
     // this.setState({ rows: rows });
 
-    let rows = this.state.rows.filter((row, index) => index !== row_index);
-    if (row_index === this.state.rows.length - 1) {
-      rows = produce(rows, (draftRows) => {
-        draftRows[draftRows.length - 1].has_focus = true;
-      });
-    }
-    this.setState({ rows: rows });
+    let filtered_rows = this.state.rows.filter((row, index) => index !== row_index); // Filter a removed row
+    filtered_rows = produce(filtered_rows, (draftRows) => {
+      this.remove_rows_focus(draftRows); // Remove rows focus
+      // Add focus to the prev row if we remove the very last row. 
+      if (row_index === this.state.rows.length - 1) draftRows[draftRows.length - 1].has_focus = true;
+    });
+    this.setState({ rows: filtered_rows });
   };
 
   onKeyDownHandler = (event, row_index, input_index) => {
