@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 //import "./styles.css";
-import { create_row_object } from "./create_row_object";
+import { create_row_object } from "./functions/create_row_object";
 import { Row } from "./components/Row/Row";
 import { RowInput } from "./components/RowInput/RowInput";
 import produce from "immer";
 import { WorkDescription } from './components/WorkDescription/WorkDescription'
+import { check_row_validity } from './functions/check_row_validity'
+import { remove_rows_focus } from './functions/remove_rows_focus'
+
 
 export default class App extends Component {
     state = {
@@ -26,7 +29,7 @@ export default class App extends Component {
                     : false;
             // validate row
             let row = draftRows[row_index];
-            row.is_valid = this.check_row_validity(draftRows[row_index]);
+            row.is_valid = check_row_validity(draftRows[row_index]);
         });
         this.setState({ rows: rows });
     };
@@ -37,7 +40,7 @@ export default class App extends Component {
         // this.setState({ rows: rows });
 
         const rows = produce(this.state.rows, (draftRows) => {
-            this.remove_rows_focus(draftRows);
+            remove_rows_focus(draftRows);
             draftRows.push(create_row_object({ has_focus: true }));
         });
         this.setState({ rows: rows });
@@ -49,7 +52,7 @@ export default class App extends Component {
 
         let filtered_rows = this.state.rows.filter((row, index) => index !== row_index); // Filter a removed row
         filtered_rows = produce(filtered_rows, (draftRows) => {
-            this.remove_rows_focus(draftRows); // Remove rows focus
+            remove_rows_focus(draftRows); // Remove rows focus
             // Add focus to the prev row if we remove the very last row. 
             if (row_index === this.state.rows.length - 1) draftRows[draftRows.length - 1].has_focus = true;
         });
@@ -88,23 +91,10 @@ export default class App extends Component {
             work_description.touched = true;
             // validate row
             let row = draftRows[row_index];
-            row.is_valid = this.check_row_validity(draftRows[row_index]);
+            row.is_valid = check_row_validity(draftRows[row_index]);
         });
         this.setState({ rows: rows });
     };
-
-    check_row_validity = (row) => {
-        let result = true;
-        result = result && row.work_description.valid;
-        row.inputs.forEach((input) => (result = result && input.valid));
-        return result;
-    };
-
-    remove_rows_focus = (rows) =>
-        rows.map((row) => {
-            row.has_focus = false;
-            return row;
-        });
 
     render() {
         return (
@@ -120,8 +110,8 @@ export default class App extends Component {
                         remove_row={this.onRemoveRowHandler}
                     >
                         <WorkDescription
-                            row_index={row_index}
                             row={row}
+                            row_index={row_index}
                             work_description={row.work_description}
                             on_work_description_change={this.onWorkDescriptionChangeHandler}
                         />
