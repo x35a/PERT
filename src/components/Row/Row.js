@@ -57,7 +57,7 @@ export default class Row extends Component {
 
     return (
       <div>
-        <span>{++this.props.row_index}.</span>
+        <span>{this.props.row_index + 1}.</span>
         <div style={{ display: "inline-block" }}>
           <div>{this.props.work_description.placeholder}</div>
           <textarea
@@ -69,9 +69,9 @@ export default class Row extends Component {
             }
           ></textarea>
           {this.props.work_description.touched &&
-          !this.props.work_description.valid ? (
-            <div>{this.props.work_description.validation.error_message}</div>
-          ) : null}
+            !this.props.work_description.valid ? (
+              <div>{this.props.work_description.validation.error_message}</div>
+            ) : null}
         </div>
         {this.props.children}
         {row_buttons}
