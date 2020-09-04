@@ -2,12 +2,12 @@ import React, { Component } from "react";
 //import "./styles.css";
 import { create_row_object } from "./create_row_object";
 import { Row } from "./components/Row/Row";
-import { RowInput } from "./components/RowInput/RowInput";
+import { Row_input } from "./components/Row_input/Row_input";
 import produce from "immer";
 
 export default class App extends Component {
   state = {
-    rows: [create_row_object()] // file create_row_object.js
+    rows: [create_row_object({ has_focus: true })]
   };
 
   onInputChangeHandler = (event, row_index, input_index) => {
@@ -51,6 +51,7 @@ export default class App extends Component {
       const last_input =
         input_index === this.state.rows[row_index].inputs.length - 1;
       if (last_row && last_input) {
+        event.preventDefault(); // prevent new line in new work description textarea
         const rows = [...this.state.rows]; // shallow copy
         rows.push(create_row_object({ has_focus: true }));
         this.setState({ rows: rows });
@@ -105,7 +106,7 @@ export default class App extends Component {
           >
             {/* Loop RowFields */}
             {Object.values(row.inputs).map((input, input_index) => (
-              <RowInput
+              <Row_input
                 key={input_index}
                 row_index={row_index}
                 input={input}

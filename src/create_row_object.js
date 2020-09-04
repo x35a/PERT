@@ -1,7 +1,7 @@
 import cloneDeep from "lodash.clonedeep";
 
 const default_row_object = {
-  has_focus: true,
+  has_focus: false,
   is_valid: false,
   work_description: {
     placeholder: "Work Description",
