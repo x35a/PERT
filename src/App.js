@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 //import "./styles.css";
 import { create_row_object } from "./create_row_object";
-import Row from "./components/Row/Row";
-import RowInput from "./components/RowInput/RowInput";
+import { Row } from "./components/Row/Row";
+import { RowInput } from "./components/RowInput/RowInput";
 import produce from "immer";
+import { WorkDescription } from './components/WorkDescription/WorkDescription'
 
 export default class App extends Component {
   state = {
@@ -121,6 +122,12 @@ export default class App extends Component {
             work_description={row.work_description}
             on_work_description_change={this.onWorkDescriptionChangeHandler}
           >
+            <WorkDescription
+              row_index={row_index}
+              row={row}
+              work_description={row.work_description}
+              on_work_description_change={this.onWorkDescriptionChangeHandler}
+            />
             {/* Loop Inputs */}
             {Object.values(row.inputs).map((input, input_index) => (
               <RowInput

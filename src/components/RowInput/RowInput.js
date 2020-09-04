@@ -1,33 +1,32 @@
 import React, { Component } from "react";
 
-export default class RowInput extends Component {
-  render() {
+export const RowInput = (props) => {
     return (
-      <div style={{ display: "inline-block" }}>
-        <div>{this.props.input.caption}</div>
-        <input
-          type="number"
-          value={this.props.input.value}
-          min="0"
-          onChange={(event) =>
-            this.props.onchange(
-              event,
-              this.props.row_index,
-              this.props.input_index
-            )
-          }
-          onKeyDown={(event) =>
-            this.props.onkeydown(
-              event,
-              this.props.row_index,
-              this.props.input_index
-            )
-          }
-        />
-        {this.props.input.touched && !this.props.input.valid ? (
-          <div>{this.props.input.validation.error_message}</div>
-        ) : null}
-      </div>
+        <div style={{ display: "inline-block" }}>
+            <div>{props.input.caption}</div>
+            <input
+                type="number"
+                value={props.input.value}
+                min="0"
+                onChange={(event) =>
+                    props.onchange(
+                        event,
+                        props.row_index,
+                        props.input_index
+                    )
+                }
+                onKeyDown={(event) =>
+                    props.onkeydown(
+                        event,
+                        props.row_index,
+                        props.input_index
+                    )
+                }
+            />
+            {props.input.touched && !props.input.valid ? (
+                <div>{props.input.validation.error_message}</div>
+            ) : null}
+        </div>
     );
-  }
+
 }
