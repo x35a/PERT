@@ -31,15 +31,27 @@ export default class App extends Component {
   };
 
   onAddRowHandler = (row_index) => {
-    let rows = [...this.state.rows]; // shallow copy
-    rows.push(create_row_object({ has_focus: true }));
+    // let rows = [...this.state.rows]; // shallow copy
+    // rows.push(create_row_object({ has_focus: true }));
+    // this.setState({ rows: rows });
+
+    const rows = produce(this.state.rows, (draftRows) => {
+      this.remove_rows_focus(draftRows);
+      draftRows.push(create_row_object({ has_focus: true }));
+    });
     this.setState({ rows: rows });
   };
 
-  onRemoveRowHandler = (target_row_index) => {
-    const rows = this.state.rows.filter(
-      (row, index) => index !== target_row_index
-    );
+  onRemoveRowHandler = (row_index) => {
+    // let rows = this.state.rows.filter((row, index) => index !== row_index);
+    // this.setState({ rows: rows });
+
+    let rows = this.state.rows.filter((row, index) => index !== row_index);
+    if (row_index === this.state.rows.length - 1) {
+      rows = produce(rows, (draftRows) => {
+        draftRows[draftRows.length - 1].has_focus = true;
+      });
+    }
     this.setState({ rows: rows });
   };
 
@@ -77,7 +89,6 @@ export default class App extends Component {
       let row = draftRows[row_index];
       row.is_valid = this.check_row_validity(draftRows[row_index]);
     });
-    this.check_row_validity(rows[row_index]);
     this.setState({ rows: rows });
   };
 
@@ -87,6 +98,12 @@ export default class App extends Component {
     row.inputs.forEach((input) => (result = result && input.valid));
     return result;
   };
+
+  remove_rows_focus = (rows) =>
+    rows.map((row) => {
+      row.has_focus = false;
+      return row;
+    });
 
   render() {
     return (

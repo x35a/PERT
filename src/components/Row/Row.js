@@ -1,31 +1,35 @@
 import React, { Component } from "react";
 
-export class Row extends Component {
+export default class Row extends Component {
   constructor(props) {
     super(props);
+    //this.state = { has_focus: this.props.row_has_focus };
     this.work_description_ref = React.createRef();
   }
 
   componentDidMount() {
-    this.focus_work_description(); // Add focus
+    console.log("Row, componentDidMount");
+    if (this.props.row_has_focus) this.work_description_ref.current.focus(); // Add focus
   }
-
-  componentDidUpdate() {
-    this.focus_work_description(); // Add focus
-  }
-
-  focus_work_description = () => {
+  componentDidUpdate(prevProps) {
+    console.log("Row, componentDidUpdate");
     if (
       this.props.row_has_focus &&
-      this.props.row_index === this.props.rows_length - 1
+      this.props.row_has_focus !== prevProps.row_has_focus
     )
-      this.work_description_ref.current.focus();
-  };
+      this.work_description_ref.current.focus(); // Add focus
+  }
+
+  // focus_work_description = () => {
+  //   if (
+  //     this.props.row_has_focus &&
+  //     this.props.row_index === this.props.rows_length - 1
+  //   )
+  //     this.work_description_ref.current.focus();
+  // };
 
   render() {
-    console.log("row_index", this.props.row_index);
-
-    // Defome row buttons
+    // Define row buttons
     const row_add_button = (
       <button
         onClick={() => this.props.add_row(this.props.row_index)}
@@ -45,8 +49,8 @@ export class Row extends Component {
     else if (this.props.row_index === this.props.rows_length - 1)
       row_buttons = (
         <>
-          {row_add_button}
           {row_remove_button}
+          {row_add_button}
         </>
       );
     else row_buttons = row_remove_button;
