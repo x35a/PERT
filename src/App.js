@@ -113,14 +113,11 @@ export default class App extends Component {
                 {this.state.rows.map((row, row_index) => (
                     <Row
                         key={row_index}
+                        row={row}
                         row_index={row_index}
                         rows_length={this.state.rows.length}
-                        row_has_focus={row.has_focus}
-                        row_is_valid={row.is_valid}
                         add_row={this.onAddRowHandler}
                         remove_row={this.onRemoveRowHandler}
-                        work_description={row.work_description}
-                        on_work_description_change={this.onWorkDescriptionChangeHandler}
                     >
                         <WorkDescription
                             row_index={row_index}

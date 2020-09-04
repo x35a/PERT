@@ -5,7 +5,7 @@ export const Row = (props) => {
     const row_add_button = (
         <button
             onClick={() => props.add_row(props.row_index)}
-            disabled={!props.row_is_valid}
+            disabled={!props.row.is_valid}
         >
             Add
         </button>
