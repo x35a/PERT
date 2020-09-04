@@ -35,24 +35,22 @@ export default class App extends Component {
     };
 
     onAddRowHandler = (row_index) => {
-        // let rows = [...this.state.rows]; // shallow copy
-        // rows.push(create_row_object({ has_focus: true }));
-        // this.setState({ rows: rows });
-
         const rows = produce(this.state.rows, (draftRows) => {
+            // Remove focus on prev row
             remove_rows_focus(draftRows);
+            // Add new row
             draftRows.push(create_row_object({ has_focus: true }));
         });
         this.setState({ rows: rows });
     };
 
     onRemoveRowHandler = (row_index) => {
-        // let rows = this.state.rows.filter((row, index) => index !== row_index);
-        // this.setState({ rows: rows });
+        // Filter a removed row out
+        let filtered_rows = this.state.rows.filter((row, index) => index !== row_index);
 
-        let filtered_rows = this.state.rows.filter((row, index) => index !== row_index); // Filter a removed row
         filtered_rows = produce(filtered_rows, (draftRows) => {
-            remove_rows_focus(draftRows); // Remove rows focus
+            // Remove rows focus
+            remove_rows_focus(draftRows);
             // Add focus to the prev row if we remove the very last row. 
             if (row_index === this.state.rows.length - 1) draftRows[draftRows.length - 1].has_focus = true;
         });
@@ -61,28 +59,22 @@ export default class App extends Component {
 
     onKeyDownHandler = (event, row_index, input_index) => {
         // Add new row on Enter
-        // event.which === 13
         if (event.key === "Enter") {
             const last_row = row_index === this.state.rows.length - 1;
-            const last_input =
-                input_index === this.state.rows[row_index].inputs.length - 1;
-            if (last_row && last_input) {
+            const last_input = input_index === this.state.rows[row_index].inputs.length - 1;
+            if (last_row && last_input && this.state.rows[row_index].is_valid) {
                 event.preventDefault(); // prevent new line in new work description textarea
-                const rows = [...this.state.rows]; // shallow copy
-                rows.push(create_row_object({ has_focus: true }));
-                this.setState({ rows: rows });
+                this.onAddRowHandler(row_index)
             }
         }
 
         // Delete row on Delete button
-        if (event.key === "Delete") {
-            const rows = this.state.rows.filter((row, index) => index !== row_index);
-            this.setState({ rows: rows });
+        if (event.key === "Delete" && this.state.rows.length > 1) {
+            this.onRemoveRowHandler(row_index)
         }
     };
 
     onWorkDescriptionChangeHandler = (event, row_index) => {
-        // immutable array item update
         const rows = produce(this.state.rows, (draftRows) => {
             let work_description = draftRows[row_index].work_description;
             work_description.value = event.target.value;
