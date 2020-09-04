@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export class Row_input extends Component {
+export default class extends Component {
   render() {
     return (
       <div style={{ display: "inline-block" }}>

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 //import "./styles.css";
 import { create_row_object } from "./create_row_object";
-import { Row } from "./components/Row/Row";
-import { Row_input } from "./components/Row_input/Row_input";
+import Row from "./components/Row/Row";
+import RowInput from "./components/RowInput/RowInput";
 import produce from "immer";
 
 export default class App extends Component {
@@ -106,7 +106,7 @@ export default class App extends Component {
           >
             {/* Loop RowFields */}
             {Object.values(row.inputs).map((input, input_index) => (
-              <Row_input
+              <RowInput
                 key={input_index}
                 row_index={row_index}
                 input={input}
