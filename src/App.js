@@ -20,6 +20,8 @@ export default class App extends Component {
             let input = draftRows[row_index].inputs[input_index];
             input.value = event.target.value;
             input.touched = true;
+            input.selected = false // prevents input selecting on data input
+
             // validate inputs
             input.valid =
                 event.target.value &&
@@ -27,6 +29,7 @@ export default class App extends Component {
                     event.target.value >= input.validation.min_value
                     ? true
                     : false;
+
             // validate row
             let row = draftRows[row_index];
             row.is_valid = check_row_validity(draftRows[row_index]);
@@ -88,6 +91,16 @@ export default class App extends Component {
         this.setState({ rows: rows });
     };
 
+    input_add_select_handler = (row_index, input_index) => {
+        const rows = produce(this.state.rows, draftRaws => { draftRaws[row_index].inputs[input_index].selected = true })
+        this.setState({ rows: rows })
+    }
+
+    input_remove_select_handler = (row_index, input_index) => {
+        const rows = produce(this.state.rows, draftRaws => { draftRaws[row_index].inputs[input_index].selected = false })
+        this.setState({ rows: rows })
+    }
+
     render() {
         return (
             <>
@@ -112,10 +125,12 @@ export default class App extends Component {
                             <RowInput
                                 key={input_index}
                                 row_index={row_index}
-                                input={input}
                                 input_index={input_index}
+                                input={input}
                                 onchange={this.onInputChangeHandler}
                                 onkeydown={this.onKeyDownHandler}
+                                input_add_select_handler={this.input_add_select_handler}
+                                input_remove_select_handler={this.input_remove_select_handler}
                             />
                         ))}
                     </Row>

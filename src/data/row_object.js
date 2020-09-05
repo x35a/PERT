@@ -23,7 +23,8 @@ export default {
                 error_message: "Value is required and can't be negative"
             },
             valid: true,
-            touched: false // to show validation error msg
+            touched: false, // to show validation error msg
+            selected: false
         },
         {
             caption: "Guess",
@@ -34,7 +35,8 @@ export default {
                 error_message: "Value is required and can't be negative"
             },
             valid: true,
-            touched: false // to show validation error msg
+            touched: false, // to show validation error msg
+            selected: false
         },
         {
             caption: "Max",
@@ -45,7 +47,8 @@ export default {
                 error_message: "Value is required and can't be negative"
             },
             valid: true,
-            touched: false // to show validation error msg
+            touched: false, // to show validation error msg
+            selected: false
         }
     ]
 };
