@@ -7,13 +7,11 @@ export class WorkDescription extends PureComponent {
     }
 
     componentDidMount() {
-        //console.log("WorkDescription, componentDidMount");
-        // Add focus
+        // Add work_description focus
         if (this.props.row.has_focus) this.work_description_ref.current.focus();
     }
     componentDidUpdate(prevProps) {
-        //console.log("WorkDescription, componentDidUpdate");
-        // Add focus
+        // Add work_description focus
         if (
             this.props.row.has_focus &&
             this.props.row.has_focus !== prevProps.row.has_focus
@@ -27,7 +25,6 @@ export class WorkDescription extends PureComponent {
                 <div>{this.props.work_description.caption}</div>
                 <textarea
                     ref={this.work_description_ref}
-                    // placeholder={this.props.work_description.caption}
                     value={this.props.work_description.value}
                     onChange={(event) =>
                         this.props.on_work_description_change(event, this.props.row_index)
