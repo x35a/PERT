@@ -15,6 +15,7 @@ export default {
 
     inputs: [
         {
+            key: 'min',
             caption: "Min",
             value: 0,
             validation: {
@@ -27,6 +28,7 @@ export default {
             selected: false
         },
         {
+            key: 'guess',
             caption: "Guess",
             value: 0,
             validation: {
@@ -39,6 +41,7 @@ export default {
             selected: false
         },
         {
+            key: 'max',
             caption: "Max",
             value: 0,
             validation: {

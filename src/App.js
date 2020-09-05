@@ -7,11 +7,22 @@ import produce from "immer";
 import { WorkDescription } from './components/WorkDescription/WorkDescription'
 import { check_row_validity } from './functions/check_row_validity'
 import { remove_rows_focus } from './functions/remove_rows_focus'
+import calc_pert from './functions/calc_pert'
+import { PertResult } from './components/PertResult/PertResult'
 
 
 export default class App extends Component {
     state = {
-        rows: [create_row_object({ has_focus: true })]
+        rows: [create_row_object({ has_focus: true })],
+        pert: {
+            total: {
+                min: 0,
+                guess: 0,
+                max: 0
+            },
+            result50: 0, // probability 50%
+            result95: 0 // probability 95%
+        }
     };
 
     onInputChangeHandler = (event, row_index, input_index) => {
@@ -34,7 +45,18 @@ export default class App extends Component {
             let row = draftRows[row_index];
             row.is_valid = check_row_validity(draftRows[row_index]);
         });
-        this.setState({ rows: rows });
+
+        // Ckeck if all inputs are valid
+        const all_inputs_are_valid = rows[row_index].inputs.every(input => input.valid)
+        let result50 = this.state.pert.result50
+        if (all_inputs_are_valid) result50 = calc_pert(rows)
+
+        this.setState({
+            rows: rows,
+            pert: {
+                result50: result50
+            }
+        });
     };
 
     onAddRowHandler = (row_index) => {
@@ -104,6 +126,8 @@ export default class App extends Component {
     render() {
         return (
             <>
+                <PertResult pert_result={this.state.pert.result50} />
+
                 {/* Loop Rows */}
                 {this.state.rows.map((row, row_index) => (
                     <Row

@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import produce from "immer";
 
 export class RowInput extends PureComponent {
     constructor(props) {
