@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
-export class WorkDescription extends Component {
+export class WorkDescription extends PureComponent {
     constructor(props) {
         super(props);
         this.work_description_ref = React.createRef();

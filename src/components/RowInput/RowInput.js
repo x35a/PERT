@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import produce from "immer";
 
-export class RowInput extends Component {
+export class RowInput extends PureComponent {
     constructor(props) {
         super(props)
         this.input_ref = React.createRef();
